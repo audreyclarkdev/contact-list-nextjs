@@ -14,17 +14,15 @@ export default function RootLayout({ children }) {
     <html lang="en">
       
       <body className={inter.className}>
-        {children}
-        <nav className="flex flex-row">
-          {/* <ul>
-            <li>
-              <Link href="/contacts">Contacts</Link>
-            </li>
-            <li>
-              <Link href="/contacts/new">Add a New Contact</Link>
-            </li>
-          </ul> */}
+        <nav className="flex flex-row bg-blue-950 p-4">
+          <div className="text-white text-xl font-bold p-4 hover:text-gray-500">
+            <Link href="/contacts">Contact List</Link>
+          </div>
+          <div className="text-white text-xl font-bold p-4 hover:text-gray-500">
+            <Link href="/contacts/new">Add New Contact</Link>
+          </div>
         </nav>
+        {children}
       </body>
     </html>
   )

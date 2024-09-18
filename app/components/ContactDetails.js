@@ -1,8 +1,15 @@
 import PropTypes from 'prop-types';
 
 const ContactDetails = ({ image, name, email, phoneNum }) => {
+
+  {allContacts.map((c) => (
+    <li key={c.number}>
+<Link href={`/contacts/${c.number}`}>{p.name}</Link>
+</li>
+))}
+
   return (
-    <div className="contact justify-center">
+    <div className="flex flex-col justify-center">
       <h1>Contact Details</h1>
       <p>Image: {image}</p>
       <p>Name: {name}</p>
