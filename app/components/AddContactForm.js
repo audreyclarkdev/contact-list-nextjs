@@ -1,5 +1,5 @@
 "use client";
-import { contactAPI } from "@/app/data/contactAPI";
+import { ContactAPI } from "@/app/data/ContactAPI";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 // import { useSearchParams } from "next/navigation";
@@ -8,7 +8,7 @@ const AddContactForm = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNum, setPhoneNum] = useState("");
-  const [image, setImage] = useState("");
+  const [imageURL, setImage] = useState("");
   const router = useRouter();
 
   // const searchParams = useSearchParams();
@@ -18,15 +18,16 @@ const AddContactForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    contactAPI.addContact({
+    ContactAPI.addContact({
       name,
-      imageURL,
       email,
       phoneNum,
+      imageURL
     });
     router.push("/contacts");
     alert("The contact has been added successfully!");
   };
+
 
   return (
     <main>
@@ -72,7 +73,7 @@ const AddContactForm = () => {
           <input
             type="text"
             className="border-2 border-gray-400 rounded-lg p-2 m-2"
-            value={image}
+            value={imageURL}
             onChange={(event) => setImage(event.target.value)}
             style={{ width: "600px" }}
             placeholder={"Enter image URL"}

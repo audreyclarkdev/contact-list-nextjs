@@ -1,9 +1,9 @@
-export const contactAPI = {
+export const ContactAPI = {
   contacts: [
     {
       id: 70319577,
       name: "Patrick Star",
-      image_url:
+      imageURL:
         "https://nickelodeonuniverse.com/wp-content/uploads/Patrick.png",
       email: "patrickstar@gmail.com",
       phoneNum: "555-555-5555",
@@ -20,11 +20,12 @@ export const contactAPI = {
   all: function () {
     return this.contacts;
   },
-  addContact: function ({ id, name, imageURL, email, phoneNum }) {
-    this.contacts.push({ id, name, imageURL, email, phoneNum });
+  addContact: function ({ id, name, email, phoneNum, imageURL }) {
+    this.contacts.push({ name, email, phoneNum, imageURL });
+    
   },
-  get: function (id) {
-    const isContact = (c) => c.number === id;
+  get: function (name) {
+    const isContact = (c) => c.name === name;
     return this.contacts.find(isContact);
   },
 };
