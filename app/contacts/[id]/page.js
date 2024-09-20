@@ -1,5 +1,4 @@
 "use client";
-import ContactDetails from "@/app/components/ContactDetails";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import {ContactAPI} from "/app/data/ContactAPI";

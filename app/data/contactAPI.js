@@ -22,7 +22,7 @@ export const ContactAPI = {
   },
   addContact: function ({ id, name, email, phoneNum, imageURL }) {
     this.contacts.push({ name, email, phoneNum, imageURL });
-    
+    const generateId = () => Math.round(Math.random() * 100000000);
   },
   get: function (name) {
     const isContact = (c) => c.name === name;
