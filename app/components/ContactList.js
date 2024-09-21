@@ -6,16 +6,18 @@ import { ContactAPI } from "../data/ContactAPI";
 import SearchBox from "./SearchBox";
 
 const ContactList = () => {
-  // Retrieving all the contacts from ContactAPI
-  const contacts = ContactAPI.all();
-
-  const [filteredContacts, setFilteredContacts] = useState(ContactAPI.all());
+  const [allContacts, _] = useState(ContactAPI.all());
+  const [filteredContacts, setFilteredContacts] = useState(allContacts);
 
   const handleSearch = (term) => {
-    const filtered = ContactAPI.all().filter(contact =>
-      contact.name.toLowerCase().includes(term.toLowerCase())
-    );
-    setFilteredContacts(filtered);
+    if (term === ""){
+      setFilteredContacts(allContacts);
+    } else {
+      const filtered = allContacts.filter(contact =>
+        contact.name.toLowerCase().includes(term.toLowerCase())
+      );
+      setFilteredContacts(filtered);
+    }
   };
 
   return (
@@ -32,22 +34,24 @@ const ContactList = () => {
       </div>
 
       <div className="min-h-screen p-10">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          {contacts.map((contact) => {
-            <div key={contact.id} className="bg-white rounded-lg shadow p-8">
-              <Image
-                src={contact.imageURL}
-                alt={contact.name}
-                className="h-32 w-32 mx-auto rounded-full border border-gray-300 p-1 overflow-hidden"
-                width={100}
-                height={100}
-              />
-              <h2 className="text-xl font-bold mt-4 text-center">
-                {contact.name}
-              </h2>
-              <p className="text-center text-gray-600">{contact.email}</p>
-              <p className="text-center text-gray-600">{contact.phoneNum}</p>
-            </div>;
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 text-black">
+          {filteredContacts.map((contact) => {
+            return (
+              <div key={contact.id} className="bg-white rounded-lg shadow p-8">
+                <Image
+                  src={contact.imageURL}
+                  alt={contact.name}
+                  className="h-32 w-32 mx-auto rounded-full border border-gray-300 p-1 overflow-hidden"
+                  width={100}
+                  height={100}
+                />
+                <h2 className="text-xl font-bold mt-4 text-center">
+                  {contact.name}
+                </h2>
+                <p className="text-center text-gray-600">{contact.email}</p>
+                <p className="text-center text-gray-600">{contact.phoneNum}</p>
+              </div>
+            )
           })}
         </div>
       </div>

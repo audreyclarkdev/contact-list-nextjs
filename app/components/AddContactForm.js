@@ -2,7 +2,7 @@
 import { ContactAPI } from "@/app/data/ContactAPI";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-// import { useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 const AddContactForm = () => {
   const [name, setName] = useState("");
@@ -11,10 +11,10 @@ const AddContactForm = () => {
   const [imageURL, setImage] = useState("");
   const router = useRouter();
 
-  // const searchParams = useSearchParams();
-  // const sort = searchParams.get("sort");
-  // const query = searchParams.get("q");
-  // console.log({ sort, query });
+  const searchParams = useSearchParams();
+  const sort = searchParams.get("sort");
+  const query = searchParams.get("q");
+  console.log({ sort, query });
 
   const handleSubmit = (event) => {
     event.preventDefault();

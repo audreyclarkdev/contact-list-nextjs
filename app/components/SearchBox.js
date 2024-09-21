@@ -11,11 +11,12 @@ const SearchBox = ({ onSearch }) => {
     }
   }
 
+
   return (
-    <form onSubmit={handleSubmit} className=" relative flex items-center w-full max-w-3xl">
+    <form onSubmit={handleSubmit} className=" relative flex items-center w-96">
       <input
         type="text"
-        className="w-full h-8 max-w-3xl p-2 pl-10 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="w-full h-7 p-2 pl-10 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
         placeholder="Search Contacts..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
