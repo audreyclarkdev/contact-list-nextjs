@@ -31,7 +31,6 @@ const AddContactForm = () => {
     return newErrors;
   };
 
-
   const handleSubmit = (event) => {
     event.preventDefault();
     const validationErrors = validate();
@@ -46,7 +45,6 @@ const AddContactForm = () => {
         imageURL
       });
       router.push("/contacts");
-      console.log("Form submitted and contact added");
       alert("The contact has been added successfully!");
   }
   };

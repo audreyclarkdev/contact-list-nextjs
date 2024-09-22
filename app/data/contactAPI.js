@@ -20,11 +20,18 @@ export const ContactAPI = {
   all: function () {
     return this.contacts;
   },
-  addContact: function ({ id, name, email, phoneNum, imageURL }) {
-    this.contacts.push({ name, email, phoneNum, imageURL });
+  generateId: function() {
+    let id;
+    do {
+      id = Math.floor(Math.random() * 1000000);
+    } while (this.contacts.find(contact => contact.id === id)); // Check for uniqueness
+    return id;
   },
-  get: function (name) {
-    const isContact = (c) => c.name === name;
-    return this.contacts.find(isContact);
+  addContact: function ({ name, email, phoneNum, imageURL }) {
+    const id = this.generateId();
+    this.contacts.push({ id, name, email, phoneNum, imageURL });
+  },
+  get: function (id) {
+    return this.contacts.find(contact => contact.id === id);
   },
 };

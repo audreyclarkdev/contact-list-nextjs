@@ -1,21 +1,21 @@
 import Image from "next/image";
-import PropTypes from 'prop-types';
+import { formatPhoneNumber } from "../utils/formatPhoneNumber";
+import PropTypes from "prop-types";
+import { useRouter } from "next/navigation";
 
 const ContactRow = ({ contact, onDelete }) => {
+  const router = useRouter();
 
-  const formatPhoneNumber = (phoneNum) => {
-    if (!phoneNum) return "";
-    const cleanedUp = ('' + phoneNum).replace(/\D/g, '');
-    const match =cleanedUp.match(/^(\d{3})(\d{3})(\d{4})$/);
-
-    if (match) {
-      return `(${match[1]}) ${match[2]}-${match[3]}`;
-    }
-    return phoneNum;
+  const handleRowClick = () => {
+    router.push(`/contacts/${contact.id}`);
   };
 
   return (
-    <tr className="border-b hover:bg-gray-500">
+    <tr
+      key={contact.id}
+      className="border-b hover:bg-gray-500 cursor-pointer"
+      onClick={handleRowClick}
+    >
       <td className="p-4">
         <Image
           src={contact.imageURL || "/avatar-placeholder.png"}
@@ -29,7 +29,13 @@ const ContactRow = ({ contact, onDelete }) => {
       <td className="p-4">{contact.email}</td>
       <td className="p-4">{formatPhoneNumber(contact.phoneNum)}</td>
       <td className="p-4">
-        <button onClick={() => onDelete(contact.id)} className="hover:text-blue-400">
+        <button
+          onClick={(event) => {
+            event.stopPropagation();
+            onDelete(contact.id)}
+          }
+          className="hover:text-blue-400"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -48,16 +54,15 @@ const ContactRow = ({ contact, onDelete }) => {
   );
 };
 
-  ContactRow.propTypes = {
-    contact: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      email: PropTypes.string.isRequired,
-      phoneNum: PropTypes.string.isRequired,
-      imageURL: PropTypes.string,
-    }).isRequired,
-    onDelete: PropTypes.func.isRequired,
-  }
-
+ContactRow.propTypes = {
+  contact: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    phoneNum: PropTypes.string.isRequired,
+    imageURL: PropTypes.string,
+  }).isRequired,
+  onDelete: PropTypes.func.isRequired,
+};
 
 export default ContactRow;

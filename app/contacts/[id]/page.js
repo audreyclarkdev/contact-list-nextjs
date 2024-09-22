@@ -1,9 +1,11 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { useParams } from "next/navigation";
 import { ContactAPI } from "/app/data/ContactAPI";
+import { formatPhoneNumber } from "@/app/utils/formatPhoneNumber";
 
-const Contact = () => {
+const ContactDetails = () => {
   const { id } = useParams();
   const contact = ContactAPI.get(parseInt(id, 10));
 
@@ -15,19 +17,25 @@ const Contact = () => {
     );
   }
 
-  const generateId = () => Math.round(Math.random() * 100000000);
-
   return (
     <main>
-      <div>
-        <p>{contact.imageURL}</p>
+      <div className="flex flex-col items-center my-8 gap-2">
+        <Image
+          src={contact.imageURL || "/avatar-placeholder.png"}
+          alt={contact.name}
+          className="w-32 h-32 rounded-full"
+          width={100}
+          height={100}
+        />
         <h1>{contact.name}</h1>
         <p>{contact.email}</p>
-        <p>{contact.phoneNum}</p>
-        <Link href="/contacts">Back to Contacts</Link>
+        <p>{formatPhoneNumber(contact.phoneNum)}</p>
+        <Link href="/contacts">
+          <button className="bg-blue-500 text-white p-2 rounded text-sm my-2">Back to Contacts</button>
+        </Link>
       </div>
     </main>
   );
 };
 
-export default Contact;
+export default ContactDetails;
