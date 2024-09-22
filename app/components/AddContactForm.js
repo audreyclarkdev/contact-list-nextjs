@@ -2,42 +2,30 @@
 import { ContactAPI } from "@/app/data/ContactAPI";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useSearchParams } from "next/navigation";
 
 const AddContactForm = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  let [imageURL, setImage] = useState("");
+  const [phoneNum, setPhoneNum] = useState("");
+  const [imageURL, setImage] = useState("");
+  const [errors, setErrors] = useState({});
   const router = useRouter();
 
-  // const [formData, setFormData] = useState({
-  //   name: "",
-  //   email: "",
-  //   phoneNumber: "",
-  //   imageURL: ""
-  // });
-
-  const [errors, setErrors] = useState({});
 
   // Form validation logic
   const validate = () => {
     const newErrors = {};
 
-    if (!name.trim() || name === "") {
-      newErrors.name = "Cannot be blank";
+    if (!name.trim()) {
+      newErrors.name = "Name cannot be blank";
     }
     
-    if (!email === "" || !/\S+@\S+\.\S+/.test(email)) {
+    if (!email || !/\S+@\S+\.\S+/.test(email)) {
       newErrors.email = "Please enter a valid email address";
     }
     
-    if (!phoneNumber === "" || !/^\d{10,15}$/.test(phoneNumber)) {
-      newErrors.phoneNumber = "Please enter a valid phone number (10-15 digits)";
-    }
-
-    if (!imageURL === "") {
-      imageURL = "/public/avatar-placeholder.png";
+    if (!phoneNum || !/^\d{10,15}$/.test(phoneNum)) {
+      newErrors.phoneNum = "Please enter a valid phone number (10-15 digits)";
     }
 
     return newErrors;
@@ -54,7 +42,7 @@ const AddContactForm = () => {
       ContactAPI.addContact({
         name,
         email,
-        phoneNumber,
+        phoneNum,
         imageURL
       });
       router.push("/contacts");
@@ -67,7 +55,7 @@ const AddContactForm = () => {
   return (
     <>
       <form className="max-w-lg mx-auto p-6 shadow-lg rounded-lg" onSubmit={handleSubmit}>
-        <h2 className="text-2xl font-bold mb-4">New Contact Form</h2>
+        <h2 className="text-2xl font-bold text-white mb-4">New Contact Form</h2>
 
         <div className="mb-4">
           <label className="block font-semibold text-white mb-2 text-xl">
@@ -75,7 +63,7 @@ const AddContactForm = () => {
           </label>
           <input
             type="text"
-            className={`w-full p-1 border  border-gray-400 ${errors.name ? 'border-red-500' : 'border-gray-300'} rounded focus:outline-none focus:ring-2 focus:ring-blue-500`}
+            className={`w-full p-1 border border-gray-400 ${errors.name ? 'border-red-500' : 'border-gray-300'} rounded focus:outline-none focus:ring-2 focus:ring-blue-500`}
             value={name}
             onChange={(event) => setName(event.target.value)}
             placeholder={"Enter name"}
@@ -104,11 +92,11 @@ const AddContactForm = () => {
           <input
             type="text"
             className={`w-full p-1 border border-gray-400 ${errors.name ? 'border-red-500' : 'border-gray-300'} rounded focus:outline-none focus:ring-2 focus:ring-blue-500`}
-            value={phoneNumber}
-            onChange={(event) => setPhoneNumber(parseInt(event.target.value))}
+            value={phoneNum}
+            onChange={(event) => setPhoneNum(parseInt(event.target.value))}
             placeholder={"(888)888-8888"}
           />
-          {errors.phoneNumber && <p className="text-red-500 text-sm mt-1">{errors.phoneNumber}</p>}
+          {errors.phoneNum && <p className="text-red-500 text-sm mt-1">{errors.phoneNum}</p>}
         </div>
 
         <div className="mb-4">
@@ -120,12 +108,11 @@ const AddContactForm = () => {
             className="w-full p-1 border border-gray-400 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             value={imageURL}
             onChange={(event) => setImage(event.target.value)}
-            style={{ width: "600px" }}
             placeholder={"Enter image URL"}
           />
         </div>
 
-        <button type="submit" onClick={handleSubmit} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 m-3 rounded">
+        <button type="submit" className=" w-20 font-semibold bg-blue-500 text-white py-2 rounded hover:bg-blue-700 transition duration-300 ">
           Submit
         </button>
       </form>

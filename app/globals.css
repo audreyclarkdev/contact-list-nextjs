@@ -13,23 +13,3 @@
   }
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-html,
-body {
-  max-width: 200vw;
-  overflow-x: hidden;
-}
-
-/* .main {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8rem;
-  min-height: 100vh;
-} */

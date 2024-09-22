@@ -6,7 +6,7 @@ import { ContactAPI } from "../data/ContactAPI";
 import SearchBox from "./SearchBox";
 
 const ContactList = () => {
-  const [allContacts, _] = useState(ContactAPI.all());
+  const [allContacts, setAllContacts] = useState(ContactAPI.all());
   const [filteredContacts, setFilteredContacts] = useState(allContacts);
 
   const handleSearch = (term) => {
@@ -21,8 +21,21 @@ const ContactList = () => {
   };
 
   const handleDelete = (id) => {
-
+    const updatedContacts = allContacts.filter((contact) => contact.id !== id);
+    setAllContacts(updatedContacts);
+    setFilteredContacts(updatedContacts);
   }
+
+  const formatPhoneNumber = (phoneNum) => {
+    if (!phoneNum) return "";
+    const cleanedUp = ('' + phoneNum).replace(/\D/g, '');
+    const match =cleanedUp.match(/^(\d{3})(\d{3})(\d{4})$/);
+
+    if (match) {
+      return `(${match[1]}) ${match[2]}-${match[3]}`;
+    }
+    return phoneNum;
+  };
 
   return (
     <main className="p-8">
@@ -30,7 +43,7 @@ const ContactList = () => {
 
       <div className="flex flex-col items-center mb-8 gap-4">
         <Link href="/contacts/new">
-          <button className="bg-blue-500 text-white p-1 rounded text-sm">
+          <button className="bg-blue-500 text-white p-2 rounded text-sm">
             Add New Contact
           </button>
         </Link>
@@ -54,18 +67,18 @@ const ContactList = () => {
               <tr key={contact.id} className="border-b hover:bg-gray-500">
                 <td className="p-4">
                   <Image
-                    src={contact.imageURL}
+                    src={contact.imageURL || "/avatar-placeholder.png"}
                     alt={contact.name}
-                    className="rounded-full p-1 overflow-auto"
-                    width={50}
-                    height={50}
+                    className="w-16 h-16 rounded-full object-cover"
+                    width={60}
+                    height={60}
                   />
                 </td>
                 <td className="p-4">{contact.name}</td>
                 <td className="p-4">{contact.email}</td>
-                <td className="p-4">{contact.phoneNum}</td>
+                <td className="p-4">{formatPhoneNumber(contact.phoneNum)}</td>
                 <td className="p-4">
-                  <button className="hover:text-blue-400">
+                  <button onClick={() => handleDelete(contact.id)} className="hover:text-blue-400">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
