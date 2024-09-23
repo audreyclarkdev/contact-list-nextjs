@@ -31,22 +31,27 @@ const AddContactForm = () => {
     return newErrors;
   };
 
+  /**
+   *
+   *
+   * @param {*} event
+   */
   const handleSubmit = (event) => {
-    event.preventDefault();
-    const validationErrors = validate();
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-    } else {
-      setErrors({});
-      ContactAPI.addContact({
-        name,
-        email,
-        phoneNum,
-        imageURL
-      });
-      router.push("/contacts");
-      alert("The contact has been added successfully!");
-  }
+      event.preventDefault();
+      const validationErrors = validate();
+      if (Object.keys(validationErrors).length > 0) {
+        setErrors(validationErrors);
+      } else {
+        setErrors({});
+        ContactAPI.addContact({
+          name,
+          email,
+          phoneNum,
+          imageURL
+        });
+        router.push("/contacts");
+        alert("The contact has been added successfully!");
+    }
   };
 
 

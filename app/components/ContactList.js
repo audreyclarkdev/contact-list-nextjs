@@ -21,7 +21,9 @@ const ContactList = () => {
   };
 
   const handleDelete = (id) => {
-    const updatedContacts = allContacts.filter((contact) => contact.id !== id);
+    ContactAPI.deleteContact(id);
+
+    const updatedContacts = ContactAPI.all();
     setAllContacts(updatedContacts);
     setFilteredContacts(updatedContacts);
   }
