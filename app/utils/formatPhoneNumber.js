@@ -1,3 +1,5 @@
+// Using RegEx to format the phone number properly so it looks nice and consistent
+
 export const formatPhoneNumber = (phoneNum) => {
   if (!phoneNum) return "";
   const cleanedUp = ('' + phoneNum).replace(/\D/g, '');

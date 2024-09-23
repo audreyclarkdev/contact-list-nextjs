@@ -31,11 +31,8 @@ const AddContactForm = () => {
     return newErrors;
   };
 
-  /**
-   *
-   *
-   * @param {*} event
-   */
+// function to submit form, check if there are validation errors, and routes to contacts page after submit
+// setErrors({}) clears the errors state if no errors are found
   const handleSubmit = (event) => {
       event.preventDefault();
       const validationErrors = validate();
@@ -53,7 +50,6 @@ const AddContactForm = () => {
         alert("The contact has been added successfully!");
     }
   };
-
 
   return (
     <>

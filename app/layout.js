@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Contact List",
-  description: "A simple web app for my contacts",
+  description: "A simple web app to manage contacts",
 };
 
 export default function RootLayout({ children }) {
