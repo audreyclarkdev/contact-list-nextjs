@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useParams } from "next/navigation";
-import { ContactAPI } from "/app/data/ContactAPI";
+import { ContactAPI } from "@/app/data/ContactAPI";
 import { formatPhoneNumber } from "@/app/utils/formatPhoneNumber";
 
 const ContactDetails = () => {
