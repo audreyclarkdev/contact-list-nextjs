@@ -1,5 +1,5 @@
 "use client";
-import { ContactAPI } from "@/app/data/ContactAPI";
+import { ContactAPI } from "../data/ContactAPI";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
